@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 入门实践</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Hello, <span class="vue">Vue</span>!</h1>
+
+    <div id="app12" class="vue-card">
+        <div class="title">
+            <h2>18.12</h2> 组件，子父通讯
+        </div>
+
+        <outter></outter>
+
+        <p class="desc">
+            <code>$emit</code> 方法向父组件传递自定义事件，父组件执行自定义事件的同时能获取其传参；事件是子父组件通讯的桥梁，传参是二者通讯的数据。
+        </p>
+    </div>
+
+    <div id="app11" class="vue-card">
+        <div class="title">
+            <h2>18.11</h2> 组件，父子通讯
+        </div>
+
+        <div class="item">
+            <label>父组件：
+                <input v-model="message" type="text">
+            </label>
+        </div>
+        <div class="item">
+            <label>子组件：
+                <alert-msg :message="message"></alert-msg>
+            </label>
+        </div>
+
+        <p class="desc">
+            设置自定义属性，并通过 <code>props: Array</code> 调用该属性即可获取值。将自定义属性和父元素数据绑定，自定义属性成为父子组件通讯的桥梁，其值为二者通讯的数据。
+        </p>
+    </div>
+
+    <div id="app10" class="vue-card">
+        <div class="title">
+            <h2>18.10</h2> 配置组件
+        </div>
+
+        <like></like>
+
+        <p class="desc">
+            <code>Vue.component()</code> 定义的组件，内部 <code>data</code>
+            应该为一个返回<strong>对象</strong>的<strong>函数</strong>。<code>template</code> 也可以传入元素选择器。
+        </p>
+    </div>
+
+    <div id="app9" class="vue-card">
+        <div class="title">
+            <h2>18.9</h2> 组件，全局与局部组件
+        </div>
+
+        <alert></alert>
+
+        <p class="desc">
+            <code>components</code> 内定义局部组件，组件的 <code>template</code> 相当于
+            <code>el</code>。<code>Vue.component(name: string, Vue: object)</code> 定义全局组件，可在任何已实例化 Vue 的元素内直接使用。
+        </p>
+    </div>
+
+    <div id="app8" class="vue-card">
+        <div class="title">
+            <h2>18.8</h2> 计算属性
+        </div>
+
+        <table>
+            <thead>
+                <th>学科</th>
+                <th>分数</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>语文</td>
+                    <td><input v-model.number="chinese" type="number"></td>
+                </tr>
+                <tr>
+                    <td>数学</td>
+                    <td><input v-model.number="math" type="number"></td>
+                </tr>
+                <tr>
+                    <td>英语</td>
+                    <td><input v-model.number="english" type="number"></td>
+                </tr>
+                <tr>
+                    <td>总分</td>
+                    <td>{{sum}}</td>
+                </tr>
+                <tr>
+                    <td>均分</td>
+                    <td>{{average}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="desc">
+            <code>computed</code> 内定义计算属性。内部方法调用 <code>this.data</code> 时不要用箭头函数，否者 <code>this</code> 并不指向
+            <code>Vue</code> 对象。
+        </p>
+    </div>
+
+    <div id="app7" class="vue-card">
+        <div class="title">
+            <h2>18.7</h2> 控制流指令
+        </div>
+
+        <p>role: {{role}}</p>
+        <label>管理员
+            <input v-model="role" value="admin" type="radio">
+        </label>
+        <label>HR
+            <input v-model="role" value="hr" type="radio">
+        </label>
+        <label>用户
+            <input v-model="role" value="user" type="radio">
+        </label>
+        <p v-if="role == 'admin'">
+            管理面板
+        </p>
+        <p v-else-if="role == 'hr'">
+            人员列表
+        </p>
+        <p v-else>
+            用户页面
+        </p>
+
+        <p class="desc">
+            用 <code>v-if</code> <code>v-else-if</code> <code>v-else</code> 实现控制流，动态显示内容。
+        </p>
+    </div>
+
+    <div id="app6" class="vue-card">
+        <div class="title">
+            <h2>18.6</h2> v-model 更多用法
+        </div>
+
+        <div class="item">
+            性别：
+            <label>男
+                <input v-model="sex" value="男" type="radio">
+            </label>
+            <label>女
+                <input v-model="sex" value="女" type="radio">
+            </label><br>
+            <span><code>value</code>：{{sex}}</span>
+        </div>
+
+        <div class="item">
+            喜欢：
+            <label>奶茶
+                <input v-model="like" value="奶茶" type="checkbox">
+            </label>
+            <label>可乐
+                <input v-model="like" value="可乐" type="checkbox">
+            </label>
+            <label>雪碧
+                <input v-model="like" value="雪碧" type="checkbox">
+            </label><br>
+            <span><code>value</code>：{{like}}</span>
+        </div>
+
+        <div class="item">来自：
+            <select v-model="form">
+                <option value="1">四川</option>
+                <option value="2">湖南</option>
+                <option value="3">重庆</option>
+            </select><br>
+            <span><code>value</code>：{{form}}</span>
+        </div>
+
+        <!-- <div class="item">想去：
+            <select v-model="dest" multiple>
+                <option value="1">四川</option>
+                <option value="2">湖南</option>
+                <option value="3">重庆</option>
+                <option value="4">湖北</option>
+            </select><br>
+            <span><code>value</code>：{{dest}}</span>
+        </div> -->
+
+        <p class="desc">
+            <code>v-model</code> 可以作用于 <code>input</code>、<code>textarea</code> 和 <code>select</code> 元素。
+        </p>
+    </div>
+
+    <div id="app5" class="vue-card">
+        <div class="title">
+            <h2>18.5</h2> v-model 指令
+        </div>
+
+        <div class="item">
+            <input v-model="message" type="text">
+            <label>无修饰</label>
+            <pre>{{message}}</pre>
+        </div>
+        <div class="item">
+            <input v-model.lazy="lazy" type="text">
+            <label>lazy</label>
+            <pre>{{lazy}}</pre>
+        </div>
+        <div class="item">
+            <input v-model.trim="trim" type="text">
+            <label>trim</label>
+            <pre>{{trim}}</pre>
+        </div>
+        <div class="item">
+            <input v-model.number="number" type="text">
+            <label>number</label>
+            <pre>{{number}}</pre>
+        </div>
+
+        <p class="desc">使用 <code>v-model</code> 指令双向绑定数据，<code>.number</code> 将输入转换为 <code>number</code> 数据类型。</p>
+    </div>
+
+    <div id="app4" class="vue-card">
+        <div class="title">
+            <h2>18.4</h2> v-on 指令
+        </div>
+
+        <form @submit.prevent="onSubmit">
+            <div>
+                <input @keyup.enter="onEnter" @focus="onFocus" @blur="onBlur" type="text">
+                <button @click="onClick" v-on="{mouseenter: onMouseEnter, mouseleave: onMouseLeave}" type="submit"
+                    class="lit">按钮</button>
+            </div>
+            <p>{{message}}</p>
+        </form>
+
+        <p class="desc">
+            使用 <code>v-on</code> 绑定事件，<code>v-on:</code> 还可以简写为 <code>@</code>，<code>.xxx</code> 形式为修饰符。在
+            <code>methods</code> 内定义方法</p>
+        </p>
+    </div>
+
+    <div id="app3" class="vue-card">
+        <div class="title">
+            <h2>18.3</h2> v-bind 指令
+        </div>
+
+        <div class="item">
+            <span :class="style">我有：{{style}} class</span>
+        </div>
+
+        <div class="item">
+            <a target="_block" :class="{lit: addClass}" :href="blog_url">我的博客</a>
+        </div>
+
+        <p class="desc">
+            使用 <code>v-bind</code> 指令将 HTML 元素属性和数据绑定，<code>v-bind:</code> 还可以简写为 <code>:</code>。
+        </p>
+    </div>
+
+    <div id="app2" class="vue-card">
+        <div class="title">
+            <h2>18.2</h2> v-for 指令
+        </div>
+        <ul>
+            <li v-for="food in foodList">
+                {{food.name}}：￥{{food.discount ? food.price * food.discount : food.price}}
+            </li>
+        </ul>
+        <p class="desc">
+            使用 <code>v-for</code> 指令遍历 Vue 对象中的数据，将 <code>v-for</code> 指令作用于需要遍历的 HTML 元素，成为遍历的模板。
+        </p>
+    </div>
+
+    <div id="app1" class="vue-card">
+        <div class="title">
+            <h2>18.1</h2> 安装与语法
+        </div>
+        <div class="item">
+            <label for="name">姓名：</label>
+            <input type="text" v-model="name" name="name">
+            <span v-show="name">你的名字：{{ name }}</span>
+        </div>
+        <div class="item">
+            <label for="age">年龄：</label>
+            <input type="number" v-model="age" name="age">
+            <span v-show="age">你的年龄：{{ age }}</span>
+        </div>
+        <div class="item">
+            <label for="sex">性别：</label>
+            <input type="text" v-model="sex" name="sex">
+            <span v-show="sex">你的性别：{{ sex }}</span>
+        </div>
+        <p class="desc">通过看表严肃的课，重新学习 Vue，加油加油，向大前端迈进！</p>
+    </div>
+
+    <div hidden id="like-template">
+        <button @click='addLick'>🥰 {{likeCount}} <span v-show='liked'>😘</span></button>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
