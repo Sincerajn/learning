@@ -2,3 +2,4 @@ node/npm/node_modules/*
 node/npm/package-lock.json
 node/webpack_learn/node_modules/*
 node/webpack_learn/package-lock.json
+/template/*
