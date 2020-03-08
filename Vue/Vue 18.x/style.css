@@ -5,6 +5,8 @@ body {
     font-size: 16px;
     line-height: 1.5em;
     background: #efefef;
+    --vue-color: #41b883;
+    --npm-color: #cb3837;
 }
 
 h1 {
@@ -13,16 +15,28 @@ h1 {
     text-align: center;
 }
 
-.vue {
-    color: #41b883;
+h1 svg {
+    height: 1em;
 }
 
-.vue-card {
+.vue {
+    color: var(--vue-color);
+}
+
+.npm {
+    color: var(--npm-color);
+}
+
+.vue-card, .doc {
     max-width: 450px;
     background: #fff;
     padding: 1.5rem 2rem;
     border-radius: 8px;
     margin: 1rem auto 2rem;
+}
+
+.doc {
+    max-width: 40em;   
 }
 
 .vue-card .title {
@@ -64,7 +78,7 @@ h1 {
     margin-bottom: 0;
 }
 
-code {
+.vue-card code {
     color: #41b883;
 }
 
@@ -73,10 +87,12 @@ code {
 }
 
 /* === *** === */
+
 a.lit {
     color: #fbc02d;
     text-decoration: none;
 }
+
 a.lit::after {
     content: "[lit]";
 }
