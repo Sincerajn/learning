@@ -8,7 +8,7 @@ export const output = {
 }
 export const module = {
     rules: [{
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ["style-loader", "css-loader"]
     }]
 }
