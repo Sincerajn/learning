@@ -1,4 +1,4 @@
 node/npm/node_modules/*
-node/webpack_learning/node_modules/*
-node/webpack_learning/package-lock.json
 node/npm/package-lock.json
+node/webpack_learn/node_modules/*
+node/webpack_learn/package-lock.json
