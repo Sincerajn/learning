@@ -9,14 +9,73 @@ body {
     --npm-color: #cb3837;
 }
 
+.vue-card li {
+    color: #35495e;
+    list-style: none;
+    margin-bottom: .5em;
+}
+
+.vue-card li:last-child {
+    margin-bottom: 0;
+}
+
+.vue-card a {
+    text-decoration: none;
+    color: var(--vue-color);
+    font-weight: bold;
+}
+
+h2.lalala {
+    margin: 0;
+    text-align: center;
+    color: #f1b418;
+    text-shadow: 0 0 2px #f03b1765;
+}
+
+.card {
+    position: relative;
+    padding: 1rem;
+    background: #fff;
+    background: rgba(0,0,0,.04);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .08);
+}
+.card button {
+    position: absolute;
+    right: 2em;
+}
+
+.pin {
+    max-width: 5rem;
+    position: fixed;
+    left: 2rem;
+    top: 2rem;
+}
+
 h1 {
     color: #35495e;
     margin: 4rem 0;
     text-align: center;
 }
 
+h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
 h1 svg {
     height: 1em;
+}
+
+.gray {
+    background: rgba(0, 0, 0, .08);
+    padding: .5em 1em;
+    border-radius: 4px;
+}
+
+.white {
+    background: #fff;
+    padding: .5em;
 }
 
 .vue {

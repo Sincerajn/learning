@@ -17,8 +17,8 @@ Vue.component("like", {
         }
     }
 })
-
-let app1 = new Vue({
+// === *** === //
+app1 = new Vue({
     el: "#app1",
     data: {
         name: null,
@@ -26,8 +26,8 @@ let app1 = new Vue({
         sex: null
     }
 })
-
-let app2 = new Vue({
+// === *** === //
+app2 = new Vue({
     el: "#app2",
     data: {
         foodList: [
@@ -48,8 +48,8 @@ let app2 = new Vue({
         ]
     }
 })
-
-let app3 = new Vue({
+// === *** === //
+app3 = new Vue({
     el: "#app3",
     data: {
         blog_url: "https://Sincerajn.github.io",
@@ -57,8 +57,8 @@ let app3 = new Vue({
         addClass: true
     }
 })
-
-let app4 = new Vue({
+// === *** === //
+app4 = new Vue({
     el: "#app4",
     data: {
         message: "事件检测"
@@ -87,8 +87,8 @@ let app4 = new Vue({
         }
     }
 })
-
-let app5 = new Vue({
+// === *** === //
+app5 = new Vue({
     el: "#app5",
     data: {
         message: null,
@@ -97,8 +97,8 @@ let app5 = new Vue({
         number: null
     }
 })
-
-let app6 = new Vue({
+// === *** === //
+app6 = new Vue({
     el: "#app6",
     data: {
         sex: "男",
@@ -107,15 +107,15 @@ let app6 = new Vue({
         dest: []
     }
 })
-
-let app7 = new Vue({
+// === *** === //
+app7 = new Vue({
     el: "#app7",
     data: {
         role: "user"
     }
 })
-
-let app8 = new Vue({
+// === *** === //
+app8 = new Vue({
     el: "#app8",
     data: {
         chinese: 95,
@@ -131,8 +131,8 @@ let app8 = new Vue({
         }
     }
 })
-
-let app9 = new Vue({
+// === *** === //
+app9 = new Vue({
     el: "#app9",
     components: {
         alert: {
@@ -145,12 +145,12 @@ let app9 = new Vue({
         },
     }
 })
-
-let app10 = new Vue({
+// === *** === //
+app10 = new Vue({
     el: "#app10"
 })
-
-let app11 = new Vue({
+// === *** === //
+app11 = new Vue({
     el: "#app11",
     data: {
         message: "yo."
@@ -167,10 +167,10 @@ let app11 = new Vue({
         }
     }
 })
-
+// === *** === //
 Vue.component("outter", {
     template: ` <div :class='{red: red}'>父组件：{{message}}
-                    <div class='item'>
+                    <div class='item white'>
                         <inner @callback='bindMessage'></inner>
                     </div>
                 </div>`,
@@ -202,6 +202,128 @@ Vue.component("inner", {
     }
 })
 
-let app12 = new Vue({
+app12 = new Vue({
     el: "#app12"
+})
+// === *** === //
+let Event = new Vue()
+
+Vue.component("trans", {
+    template: '<div>{{ message }}</div>',
+    data() {
+        return {
+            message: '监听数据'
+        }
+    },
+    mounted() {
+        Event.$on("pushMessage", data => {
+            this.message = data
+        })
+    },
+})
+
+app13 = new Vue({
+    el: "#app13",
+    data: {
+        message: "Hello"
+    },
+    methods: {
+        onChange: function () {
+            Event.$emit("pushMessage", this.message)
+        }
+    }
+})
+// === *** === //
+Vue.filter('unit', (val, unit = '￥') => {
+    return unit + val
+})
+
+app14 = new Vue({
+    el: '#app14',
+    data: {
+        price: 10,
+        demo: '{{ value | filter() }}'
+    }
+})
+// === *** === //
+Vue.directive('pin', (el, binding) => {
+    let value = binding.value
+    let position = binding.modifiers
+    if (value) {
+        el.className += ' pin'
+        if (position.right) {
+            el.style.left = 'calc(100vw - 10rem)'
+        }
+        else {
+            el.style.left = '0'
+        }
+    }
+    else {
+        el.className = 'card'
+    }
+})
+
+app15 = new Vue({
+    el: '#app15',
+    data: {
+        btnContent: "悬挂",
+        pined: false
+    }
+})
+// === *** === //
+app16 = new Vue({
+    el: '#app16',
+    data: {
+        pined: false
+    }
+})
+// === *** === //
+let toggle = {
+    data() {
+        return {
+            visible: false
+        }
+    },
+    methods: {
+        hide() {
+            this.visible = false
+        },
+        show() {
+            this.visible = true
+        },
+        toggle() {
+            this.visible = !this.visible
+        }
+    }
+}
+
+Vue.component('popup', {
+    template: `
+            <div>
+                <span @mouseenter='show' @mouseleave='hide'>Hover</span>
+                <span v-if='visible'>Hello, world!</span>
+            </div>`,
+    mixins: [toggle]
+})
+
+Vue.component('tooltip', {
+    template: `
+    <div>
+        <button @click='toggle'>Toggle</button>
+        <span v-if='visible'>Hello, world!</span>
+    </div>
+    `,
+    mixins: [toggle]
+})
+
+app17 = new Vue ({
+    el: '#app17'
+})
+// === *** === //
+Vue.component('info-card', {
+    template: '#info-card-tpl'
+})
+
+app18 = new Vue({
+    el: '#app18',
 })

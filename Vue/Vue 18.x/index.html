@@ -13,12 +13,134 @@
 <body>
     <h1>Hello, <span class="vue">Vue</span>!</h1>
 
+    <div class="vue-card">
+        <h2 class="lalala">🎉 完结撒花 🎉</h2>
+    </div>
+
+    <ol class="vue-card">
+        <h2>目录</h2>
+        <li>18.1 <a href="#app1">初见 Vue</a></li>
+        <li>18.2 <a href="#app2">v-for 指令</a></li>
+        <li>18.3 <a href="#app3">v-bind 指令</a></li>
+        <li>18.4 <a href="#app4">v-on 指令</a></li>
+        <li>18.5 <a href="#app5">v-model 指令</a></li>
+        <li>18.6 <a href="#app6">v-model 更多用法</a></li>
+        <li>18.7 <a href="#app7">控制流指令</a></li>
+        <li>18.8 <a href="#app8">计算属性</a></li>
+        <li>18.9 <a href="#app9">组件，全局与局部组件</a></li>
+        <li>18.10 <a href="#app10">配置组件</a></li>
+        <li>18.11 <a href="#app11">组件，父子通讯</a></li>
+        <li>18.12 <a href="#app12">组件，子父通讯</a></li>
+        <li>18.13 <a href="#app13">任意组件间通讯</a></li>
+        <li>18.14 <a href="#app14">过滤器</a></li>
+        <li>18.16 <a href="#app15">混合</a></li>
+        <li>18.16 <a href="#app16">插槽</a></li>
+    </ol>
+
+    <div id="app18" class="vue-card">
+        <div class="title">
+            <h2>18.18</h2> 插槽
+        </div>
+
+        <div class="gray">
+            <info-card>
+                <div slot="title">表严肃</div>
+                <div slot="content">想你，也想王花花。</div>
+            </info-card>
+        </div>
+
+        <p class="desc">
+            使用 <code>slot</code> 标签定义插槽，同样通过 <code>slot</code> 标签调用。可以给在定义 <code>slot</code> 标签时添加 <code>name</code>
+            属性，并在调用时使用相同值的 <code>slot</code> 属性调用。
+        </p>
+    </div>
+
+    <div id="app17" class="vue-card">
+        <div class="title">
+            <h2>18.17</h2> 混合
+        </div>
+
+        <div class="item">
+            <popup></popup>
+        </div>
+
+        <div class="item">
+            <tooltip></tooltip>
+        </div>
+
+        <p class="desc">
+            直接将组件中可以复用的部分写在一个对象中，通过 <code>mixins: Array[object]</code> 调用，混合所定义的可被直接覆盖。
+        </p>
+    </div>
+
+    <div id="app16" class="vue-card">
+        <div class="title">
+            <h2>18.16</h2> 自定义指令，配置传参与修饰符
+        </div>
+
+        <div v-pin.right='pined'>
+            我也是一张纸片 <button @click='pined = !pined'>Toggle</button>
+        </div>
+
+        <p class="desc">
+            通过 <code>binding.modifiers</code> 自定义指令修饰符，通过 <code>binding.arg</code> 获取传参。PS：demo 有点小 bug，CSS 的锅。
+        </p>
+    </div>
+
+    <div id="app15" class="vue-card">
+        <div class="title">
+            <h2>18.15</h2> 自定义指令，基础配置
+        </div>
+
+        <div v-pin='pined'>
+            <span>我是一张卡片</span>
+            <button @click='pined = !pined'>Toggle pin</button>
+        </div>
+
+        <p class="desc">
+            通过 <code>Vue.directive(name: string, callback(el, binding))</code> 定义一个自定义指令。
+        </p>
+    </div>
+
+    <div id="app14" class="vue-card">
+        <div class="title">
+            <h2>18.14</h2> 过滤器
+        </div>
+
+        <label>输入价格：
+            <input v-model.number='price' type="text">
+        </label>
+        <p>
+            价格为：{{ price | unit('￥') }}
+        </p>
+
+        <p class="desc">
+            通过 <code>Vue.filter(name: string, fun)</code> 定义一个过滤器，用形如 <code>{{ demo }}</code> 的方式调用。
+        </p>
+    </div>
+
+    <div id="app13" class="vue-card">
+        <div class="title">
+            <h2>18.13</h2> 任意组件间通讯
+        </div>
+
+        <div class="item">
+            <input @keyup='onChange' v-model='message' type='text'>
+        </div>
+
+        <trans></trans>
+
+        <p class="desc">
+            实现任意组件之间的通讯，和子父通讯的方式有些类似，都是通过监听自定义事件的方式，不同之处在于任意组件都可以通过一个统一的中间层，也可以把它理解为全局的 Vue 对象。
+        </p>
+    </div>
+
     <div id="app12" class="vue-card">
         <div class="title">
             <h2>18.12</h2> 组件，子父通讯
         </div>
 
-        <outter></outter>
+        <outter class="gray"></outter>
 
         <p class="desc">
             <code>$emit</code> 方法向父组件传递自定义事件，父组件执行自定义事件的同时能获取其传参；事件是子父组件通讯的桥梁，传参是二者通讯的数据。
@@ -30,19 +152,21 @@
             <h2>18.11</h2> 组件，父子通讯
         </div>
 
-        <div class="item">
-            <label>父组件：
-                <input v-model="message" type="text">
-            </label>
-        </div>
-        <div class="item">
-            <label>子组件：
-                <alert-msg :message="message"></alert-msg>
-            </label>
+        <div class="gray">
+            <div class="item">
+                <label>父组件：
+                    <input v-model="message" type="text">
+                </label>
+            </div>
+            <div class="item white">
+                <label>子组件：
+                    <alert-msg :message="message"></alert-msg>
+                </label>
+            </div>
         </div>
 
         <p class="desc">
-            设置自定义属性，并通过 <code>props: Array</code> 调用该属性即可获取值。将自定义属性和父元素数据绑定，自定义属性成为父子组件通讯的桥梁，其值为二者通讯的数据。
+            设置自定义属性，并通过 <code>props: Array[string]</code> 调用该属性即可获取值。将自定义属性和父元素数据绑定，自定义属性成为父子组件通讯的桥梁，其值为二者通讯的数据。
         </p>
     </div>
 
@@ -299,9 +423,20 @@
         <p class="desc">通过看表严肃的课，重新学习 Vue，加油加油，向大前端迈进！</p>
     </div>
 
-    <div hidden id="like-template">
+    <template hidden id="like-template">
         <button @click='addLick'>🥰 {{likeCount}} <span v-show='liked'>😘</span></button>
-    </div>
+    </template>
+
+    <template hidden id="info-card-tpl">
+        <div class="info-card">
+            <div class="title">
+                <slot name="title"></slot>
+            </div>
+            <div class="body">
+                <slot name="content"></slot>
+            </div>
+        </div>
+    </template>
 
     <script src="js/main.js"></script>
 </body>
