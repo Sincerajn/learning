@@ -7,7 +7,7 @@ new Vue({
     data: {
         list: [],
         current: {},
-        count: 1
+        count: 0
     },
     mounted() {
         this.count = Lit.read("count") || this.count
@@ -18,6 +18,7 @@ new Vue({
         Event.$on('remove', id => this.remove(id))
         Event.$on('toggleCompleted', id => this.toggleCompleted(id))
         Event.$on('setCurrent', item => this.setCurrent(item))
+        Event.$on('toggleMore', id => this.toggleMore(id))
     },
     methods: {
         checkAlert() {
@@ -38,20 +39,20 @@ new Vue({
 
             let id = this.current.id
             if (id) {
-                let i = this.list.findIndex(item => item.id === id)
+                let i = this.getIndex(id)
                 Vue.set(this.list, i, (Object.assign({}, this.current)))
             }
             else {
                 let item = Object.assign({}, this.current)
                 item.completed = false
                 item.alerted = false
-                item.id = this.count++
+                item.id = ++this.count
                 this.list.push(item)
             }
             this.current = {}
         },
         remove(id) {
-            let index = this.list.findIndex(item => item.id === id)
+            let index = this.getIndex(id)
             this.list.splice(index, 1)
         },
         toggleCompleted(id) {
@@ -62,6 +63,11 @@ new Vue({
         setCurrent(item) {
             let that = Object.assign({}, item)
             this.current = that
+        },
+        toggleMore(id) {
+            let item = this.list[this.getIndex(id)]
+            let showMore = item.showMore
+            Vue.set(item, 'showMore', !showMore)
         },
         getIndex(id) {
             let index = this.list.findIndex(item => item.id === id)

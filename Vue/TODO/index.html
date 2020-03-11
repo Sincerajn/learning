@@ -20,10 +20,10 @@
         <form @submit.prevent='merge' class="form-input">
             <input v-model.trim='current.title' placeholder="添加任务" type="text">
             <button type="submit">提交</button>
-            <!-- <div v-if="current.id" class="more"> -->
+            <div v-if="current.id" class="more">
                 <textarea v-model="current.desc" placeholder="任务详情与描述" class="ctrler"></textarea>
                 <input v-model="current.date" type="datetime-local">
-            <!-- </div> -->
+            </div>
         </form>
 
         <div class="uncompleted">
@@ -49,6 +49,8 @@
             {{ item.title }}
             <button @click="actions('remove', item.id)">❌</button>
             <button @click="actions('setCurrent', item)">🛠</button>
+            <button @click="actions('toggleMore', item.id)" v-if="item.desc">❔</button>
+            <p v-if="item.showMore">{{ item.desc }}</p>
         </li>
     </template>
     <script src="js/main.js"></script>
