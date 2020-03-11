@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hans">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,28 +9,49 @@
     <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.bootcss.com/vue/2.6.11/vue.js"></script>
+    <script src="./js/litCore.js"></script>
 </head>
+
 <body>
     <header>
         <h1>TODO List </h1>
     </header>
-    <main>
-        <div class="form-input">
-            <input type="text">
-            <button type="submit">添加</button>
-        </div>
+    <main id="todo-app">
+        <form @submit.prevent='merge' class="form-input">
+            <input v-model.trim='current.title' placeholder="添加任务" type="text">
+            <button type="submit">提交</button>
+            <!-- <div v-if="current.id" class="more"> -->
+                <textarea v-model="current.desc" placeholder="任务详情与描述" class="ctrler"></textarea>
+                <input v-model="current.date" type="datetime-local">
+            <!-- </div> -->
+        </form>
 
-        <div class="unfinished">
+        <div class="uncompleted">
+            <h2>待办</h2>
             <ul>
-                <li>改变世界</li>
+                <todo-task :item="item" v-for='item in list' :key="item.id" v-if='!item.completed'></todo-task>
             </ul>
         </div>
 
         <div class="completed">
+            <h2>已完成</h2>
             <ul>
-                <li>改变自己</li>
+                <todo-task :item="item" v-for='item in list' :key='item.id' v-if='item.completed'></todo-task>
             </ul>
         </div>
     </main>
+
+    <audio id="alert-sound" src="src/alert.ogg"></audio>
+
+    <template id="todo-task-tpl">
+        <li>
+            <button @click="actions('toggleCompleted', item.id)">✔</button>
+            {{ item.title }}
+            <button @click="actions('remove', item.id)">❌</button>
+            <button @click="actions('setCurrent', item)">🛠</button>
+        </li>
+    </template>
+    <script src="js/main.js"></script>
 </body>
+
 </html>
