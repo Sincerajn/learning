@@ -7,6 +7,7 @@
     <title>待办清单</title>
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.bootcss.com/vue/2.6.11/vue.js"></script>
     <script src="./js/litCore.js"></script>
@@ -17,11 +18,11 @@
         <h1>TODO List </h1>
     </header>
     <main id="todo-app">
-        <form @submit.prevent='merge' class="form-input">
-            <input v-model.trim='current.title' placeholder="添加任务" type="text">
-            <button type="submit">提交</button>
+        <form @submit.prevent='merge' class="form-input" id="input-box">
+            <input v-model.trim='current.title' placeholder="添加任务" type="text"><button type="submit"><i
+                    style="color: #7b8b70;font-size: 18px;" class="fa fa-plus"></i></button>
             <div v-if="current.id" class="more">
-                <textarea v-model="current.desc" placeholder="任务详情与描述" class="ctrler"></textarea>
+                <textarea v-model="current.desc" placeholder="添加任务详情与描述" class="ctrler"></textarea>
                 <input v-model="current.date" type="datetime-local">
             </div>
         </form>
@@ -45,11 +46,23 @@
 
     <template id="todo-task-tpl">
         <li>
-            <button @click="actions('toggleCompleted', item.id)">✔</button>
-            {{ item.title }}
-            <button @click="actions('remove', item.id)">❌</button>
-            <button @click="actions('setCurrent', item)">🛠</button>
-            <button @click="actions('toggleMore', item.id)" v-if="item.desc">❔</button>
+            <div class="left">
+                <button @click="actions('toggleCompleted', item.id)">
+                    <i class="fa fa-check"></i>
+                </button>
+                {{ item.title }}
+            </div>
+            <div class="right">
+                <button @click="actions('remove', item.id)">
+                    <i class="fa fa-close"></i>
+                </button>
+                <button @click="actions('setCurrent', item)" v-if='!item.completed'>
+                    <i class="fa fa-expand"></i>
+                </button>
+                <button @click="actions('toggleMore', item.id)" v-if="item.desc">
+                    <i class="fa fa-info"></i>
+                </button>
+            </div>
             <p v-if="item.showMore">{{ item.desc }}</p>
         </li>
     </template>
