@@ -9,6 +9,7 @@ new Vue({
         current: {},
         count: 0
     },
+
     mounted() {
         this.count = Lit.read("count") || this.count
         this.list = Lit.read("todo-list") || this.list
@@ -20,10 +21,12 @@ new Vue({
         Event.$on('setCurrent', item => this.setCurrent(item))
         Event.$on('toggleMore', id => this.toggleMore(id))
     },
+
     methods: {
         checkAlert() {
             this.list.forEach(item => {
                 if (!item.date || item.alerted) return
+
                 let date = new Date(item.date).getTime()
                 let now = new Date().getTime()
 
@@ -34,15 +37,16 @@ new Vue({
                 }
             })
         },
+
         merge() {
             if (!this.current.title) return
 
             let id = this.current.id
-            if (id) {
+            if (id) { // 修改一个任务
                 let i = this.getIndex(id)
                 Vue.set(this.list, i, (Object.assign({}, this.current)))
             }
-            else {
+            else { //新加一个任务
                 let item = Object.assign({}, this.current)
                 item.completed = false
                 item.alerted = false
@@ -51,40 +55,48 @@ new Vue({
             }
             this.current = {}
         },
+
+
         remove(id) {
             let index = this.getIndex(id)
             this.list.splice(index, 1)
         },
+
         toggleCompleted(id) {
             let i = this.getIndex(id)
             let completed = this.list[i].completed
             this.list[i].completed = !completed
         },
+
         setCurrent(item) {
             let that = Object.assign({}, item)
             this.current = that
         },
+
         toggleMore(id) {
             let item = this.list[this.getIndex(id)]
             let showMore = item.showMore
             Vue.set(item, 'showMore', !showMore)
         },
+
         getIndex(id) {
             let index = this.list.findIndex(item => item.id === id)
             return index
         }
     },
+
     components: {
         'todo-task': {
             template: '#todo-task-tpl',
             props: ['item'],
             methods: {
-                actions(name, params) {
+                actions(name, params) { // 子组件向父组件提交事件
                     Event.$emit(name, params)
                 }
             }
         },
     },
+
     watch: {
         list: {
             deep: true,
@@ -92,6 +104,7 @@ new Vue({
                 Lit.store("todo-list", newValue)
             }
         },
+
         count: {
             handler(newValue) {
                 Lit.store("count", newValue)
